@@ -13,6 +13,11 @@
 
 ### Dataset Summary
 
+Number of training examples = 34799
+Number of testing examples = 12630
+Image data shape = (32, 32, 3)
+Number of classes = 43
+
 ### Exploratory Visualization
 
 In the notebook HTML file you can see that I plotted a random image and the histogram across the train, validation and test sets. It very clear that the various classes are represented differently in each of these sets which could result in over fitting (histogram of the relative occurence below)
@@ -41,7 +46,7 @@ I used the LeNet architecture, with only one addition which was to include drop 
 
 I tinkered with some of the hyperparameters around model training, but didn't find a material impact. I ended up reverting back to the LeNet model for all hyperparamters. Overall, the model is overfitting since it performs well on training/validation but not as well on the test. The largest improvement I made as far as model training was to augment the test data set by rotating each image a a little in each direction, creating 3x larger training set (origin, counter-clockwise, clockwise). I imagine that it would be possible to implement various distortions to any given image to similulate how a true image may be detected by a camera (perspective, blurs, etc).
 
-EPOCHS = 100
+EPOCHS = 10
 BATCH_SIZE = 128
 
 ### 3. Test a Model on New Images
