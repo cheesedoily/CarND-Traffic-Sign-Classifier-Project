@@ -69,35 +69,35 @@ label 38 with probability 0.0002296828142789309%
 label 12 with probability 4.0134628953580886e-08%
 label 41 with probability 5.949251074416351e-10%
 label 14 with probability 2.3589181823158167e-10%
------
+
 Correct label 29
 label 1 with probability 61.59331202507019%
 label 2 with probability 32.88537859916687%
 label 19 with probability 2.923642471432686%
 label 9 with probability 1.5563751570880413%
 label 6 with probability 1.041300967335701%
------
+
 Correct label 33
 label 33 with probability 98.39504957199097%
 label 38 with probability 0.975803192704916%
 label 37 with probability 0.31284091528505087%
 label 1 with probability 0.22186047863215208%
 label 17 with probability 0.09444410097785294%
------
+
 Correct label 40
 label 12 with probability 100.0%
 label 2 with probability 2.884516514534141e-08%
 label 40 with probability 1.3232772516635904e-09%
 label 5 with probability 3.3933576434885815e-11%
 label 38 with probability 1.7408471853722768e-11%
------
+
 Correct label 9
 label 9 with probability 99.52823519706726%
 label 10 with probability 0.3651408478617668%
 label 16 with probability 0.08274962310679257%
 label 3 with probability 0.012839463306590915%
 label 32 with probability 0.011046891449950635%
------
+
 
 The first image a basically as clear as it gets so the model doesn't have much noise to confuse it.
 
