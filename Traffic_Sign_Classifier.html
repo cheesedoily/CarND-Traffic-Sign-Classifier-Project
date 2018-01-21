@@ -12399,7 +12399,7 @@ Number of classes = 43
     <span class="n">fc2</span>    <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">fc2</span><span class="p">,</span> <span class="n">keep_prob</span><span class="p">)</span>
 
     
-    <span class="c1"># SOLUTION: Layer 5: Fully Connected. Input = 84. Output = 10.</span>
+    <span class="c1"># SOLUTION: Layer 5: Fully Connected. Input = 84. Output = 43.</span>
     <span class="n">fc3_W</span>  <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">truncated_normal</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">84</span><span class="p">,</span> <span class="n">output_labels</span><span class="p">),</span> <span class="n">mean</span> <span class="o">=</span> <span class="n">mu</span><span class="p">,</span> <span class="n">stddev</span> <span class="o">=</span> <span class="n">sigma</span><span class="p">))</span>
     <span class="n">fc3_b</span>  <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">output_labels</span><span class="p">))</span>
     <span class="n">logits</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">fc2</span><span class="p">,</span> <span class="n">fc3_W</span><span class="p">)</span> <span class="o">+</span> <span class="n">fc3_b</span>
@@ -12876,7 +12876,7 @@ a = np.array([[ 0.24879643,  0.07032244,  0.12641572,  0.34763842,  0.07893497,
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### Print out the top five softmax probabilities for the predictions on the German traffic sign images found on the web. </span>
@@ -12885,9 +12885,13 @@ a = np.array([[ 0.24879643,  0.07032244,  0.12641572,  0.34763842,  0.07893497,
 <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">sess</span><span class="p">:</span>
     <span class="n">saver</span><span class="o">.</span><span class="n">restore</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">latest_checkpoint</span><span class="p">(</span><span class="s1">&#39;./&#39;</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">output</span><span class="p">,</span> <span class="n">correct_label</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">y_extra</span><span class="p">):</span>
-        <span class="n">topkv</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">top_k</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
+        <span class="n">topkv</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">top_k</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Correct label </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">correct_label</span><span class="p">))</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">topkv</span><span class="p">)</span>
+        <span class="n">softmaxs</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">topkv</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="n">topkv</span><span class="o">.</span><span class="n">indices</span>
+        <span class="k">for</span> <span class="n">sm</span><span class="p">,</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">softmaxs</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;label </span><span class="si">{}</span><span class="s1"> with probability </span><span class="si">{}</span><span class="s1">%&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">sm</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-----&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12905,15 +12909,40 @@ a = np.array([[ 0.24879643,  0.07032244,  0.12641572,  0.34763842,  0.07893497,
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Correct label 17
-TopKV2(values=array([ 24.5057373 ,  11.52175808,   2.86954355], dtype=float32), indices=array([17, 38, 12], dtype=int32))
+label 17 with probability 99.99977350234985%
+label 38 with probability 0.0002296828142789309%
+label 12 with probability 4.0134628953580886e-08%
+label 41 with probability 5.949251074416351e-10%
+label 14 with probability 2.3589181823158167e-10%
+-----
 Correct label 29
-TopKV2(values=array([ 3.53379178,  2.90626669,  0.4860687 ], dtype=float32), indices=array([ 1,  2, 19], dtype=int32))
+label 1 with probability 61.59331202507019%
+label 2 with probability 32.88537859916687%
+label 19 with probability 2.923642471432686%
+label 9 with probability 1.5563751570880413%
+label 6 with probability 1.041300967335701%
+-----
 Correct label 33
-TopKV2(values=array([ 8.61395359,  4.00046873,  2.8629024 ], dtype=float32), indices=array([33, 38, 37], dtype=int32))
+label 33 with probability 98.39504957199097%
+label 38 with probability 0.975803192704916%
+label 37 with probability 0.31284091528505087%
+label 1 with probability 0.22186047863215208%
+label 17 with probability 0.09444410097785294%
+-----
 Correct label 40
-TopKV2(values=array([ 28.89979172,   6.93329811,   3.85146618], dtype=float32), indices=array([12,  2, 40], dtype=int32))
+label 12 with probability 100.0%
+label 2 with probability 2.884516514534141e-08%
+label 40 with probability 1.3232772516635904e-09%
+label 5 with probability 3.3933576434885815e-11%
+label 38 with probability 1.7408471853722768e-11%
+-----
 Correct label 9
-TopKV2(values=array([ 10.12783527,   4.51992178,   3.03545809], dtype=float32), indices=array([ 9, 10, 16], dtype=int32))
+label 9 with probability 99.52823519706726%
+label 10 with probability 0.3651408478617668%
+label 16 with probability 0.08274962310679257%
+label 3 with probability 0.012839463306590915%
+label 32 with probability 0.011046891449950635%
+-----
 </pre>
 </div>
 </div>
