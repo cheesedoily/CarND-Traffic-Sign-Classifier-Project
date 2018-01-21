@@ -63,6 +63,7 @@ Test Accuracy = 0.941
 
 The model only performed 60% on images from the web vs the 93+% on the test set. Looking at the softmax, I noticed that the correct label was usually the second most likely choice if not the first, so that's good. The dataset provided in some ways has been normalized by the curator of the data set to ensure images are roughly inline with one another. That human bias wasn't present as I found images on the web. I think this basically means in some ways that there is some leaking between test and training. When I through innocuous images at the model without this bias, performance is fairly weak. I think that the below approaches would go a long way in making the model more robust.
 
+```
 Correct label 17
 label 17 with probability 99.99977350234985%
 label 38 with probability 0.0002296828142789309%
@@ -97,7 +98,7 @@ label 10 with probability 0.3651408478617668%
 label 16 with probability 0.08274962310679257%
 label 3 with probability 0.012839463306590915%
 label 32 with probability 0.011046891449950635%
-
+```
 
 The first image a basically as clear as it gets so the model doesn't have much noise to confuse it.
 
